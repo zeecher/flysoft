@@ -122,7 +122,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
             "rec_id": "API2EASYOWE2110000090DYUIST20240722_RU-TUA.TK.0.320.F10872500S10752411.OENCUDM0MTI0MzM=..-17.TK.255.DYU.202407220310.IST.202407220630.333.QY2PXOW.320.0.TUA.0.1P30K.1P8K..1.1..0",
             "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
             "fare": 10520, // тариф
-            "taxes": 507, // сумма такс
+            "tax": 507, // сумма такс
             "fee": 2, // сбор 
             "currency": "RUB", // валюта
             "provider": "TUA", // наименование поставщика услуги
@@ -729,9 +729,9 @@ POST /booking
     "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
     "billing_number": "1253665116", // номер заказа
-    "order_id": "5e380c87676c62dbc55f90a0836dbb8786a7d55b", // идентификатор заказа на стороне GDS
-    "booking_number": "5ТКА76",
-    "airline_booking_number" : ""SU/YZFBJA",
+    "order_id": "5e380c87676c62dbc55f90a0836dbb8786a7d55b", // идентификатор заказа на стороне GDS если присутсвует 
+    "booking_number": "CBKZVT", //локатор GDS
+    "airline_booking_number": ["FDFFRZ"], //локатор авиакомпании, используется для регистрации на рейс
     "timelimit": "24.07.2024 15:58:00", // время автоануляции. Данные указаны в тайм-зоне UTC 0
     "expire": 1522,  // секунд до автоануляции
     "created": "24.07.2024 15:32:34", // дата создания заказа. Данные указаны в тайм-зоне UTC 0
@@ -1013,7 +1013,7 @@ POST /ticket
     "code": 0,
     "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
-    "order_id": 21845082, // Номер заказа GDS если присутсвует
+    "order_id": "5e380c87676c62dbc55f90a0836dbb8786a7d55b", // Номер заказа GDS если присутсвует
     "billing_number": 125354686465,
     "expire": "30.05.2024 16:52:00",
     "expire_remain": 85492,
@@ -1022,15 +1022,17 @@ POST /ticket
         "sign": "Ticketed",
         "title": "Закрыт"
     },
-    "price": {
-        "RUB": {
-            "fare": 10520,
-            "fee": 200,
-            "taxes": 507,
-            "extra_baggage": 0,
-            "total_price": 11227
-        }
-    },
+    "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
+            "fare": 10520, // тариф
+               "fee": 2, // сбор 
+            "tax": 507, // сумма такс
+                 "taxes": [
+                        {
+                            "code": "RI",
+                            "amount": 507,
+                            "currency": "RUB"
+                        }
+                    ] ,
     "tickets": [
         {
             "booking_number": "CBKZVT", //локатор GDS
@@ -1060,10 +1062,10 @@ POST /ticket
                 "expire": "2044-05-28"
             },
             "amounts": {
-                "total_price": 11226,
-                "fare": 1587.3,
-                "fee": 0,
-                "tax": 507,
+                "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
+            "fare": 10520, // тариф
+               "fee": 2, // сбор 
+            "tax": 507, // сумма такс
                  "taxes": [
                         {
                             "code": "RI",
@@ -1084,17 +1086,17 @@ POST /ticket
     ],
     "flights": "flights": {
         "rec_id": "API2EASYOWE2110000090DYUIST20240722_RU-TUA.TK.0.320.F10872500S10752411.OENCUDM0MTI0MzM=..-17.TK.255.DYU.202407220310.IST.202407220630.333.QY2PXOW.320.0.TUA.0.1P30K.1P8K..1.1..0",
-        "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
-        "fare": 10520, // тариф
-        "taxes": 507, // сумма такс
-        "fee": 2, // сбор 
+       "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
+            "fare": 10520, // тариф
+            "tax": 507, // сумма такс
+            "fee": 2, // сбор 
         "currency": "RUB", // валюта
         "provider": "TUA", // наименование поставщика услуги
         "supplier": { // валидирующий перевозчик 
             "code": "TK",
             "title": "Turkish Airlines"
         },
-        "ticketing_time_limit": 1707549258, // отведенное время для выписки билета, дата и вермя в unix-формате 
+        "ticketing_time_limit": 0
         "has_branded_tariffs": true, // флаг доступности семейства тарифов.
         "duration": 320, // общая продолжительность перелета всех роутов в минутах
         "routes_count": 1, // число роутов в перелете
