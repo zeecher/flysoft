@@ -671,6 +671,7 @@ POST /prebook
 ```
 
 ## Реализация Book
+Запрос на создание заказа.
 
 ##### Пример запроса
 POST /book
@@ -726,9 +727,17 @@ POST /book
     "code": 0,
     "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
-    "billing_number": "1253665116"
-    "booking_number": "KC/TQZED9",
-    "timelimit": "10.02.2024 08:40",
+    "billing_number": "1253665116", // номер заказа
+    "order_id": "5e380c87676c62dbc55f90a0836dbb8786a7d55b", // идентификатор заказа на стороне GDS
+    "booking_number": "5ТКА76",
+    "airline_booking_number" : ""SU/YZFBJA",
+    "timelimit": "24.07.2024 15:58:00", // время автоануляции. Данные указаны в тайм-зоне UTC 0
+    "expire": 1522,  // секунд до автоануляции
+    "created": "24.07.2024 15:32:34", // дата создания заказа. Данные указаны в тайм-зоне UTC 0
+    "status": { // статус заказа
+      "sign": "Booked",  // если не удалось забронировать Cancelled (Отменен)
+      "title": "Забронировано" 
+    },
     "flights": {
         "rec_id": "API2EASYOWE2110000090DYUIST20240722_RU-TUA.TK.0.320.F10872500S10752411.OENCUDM0MTI0MzM=..-17.TK.255.DYU.202407220310.IST.202407220630.333.QY2PXOW.320.0.TUA.0.1P30K.1P8K..1.1..0",
         "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
