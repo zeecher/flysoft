@@ -38,7 +38,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
         "index": 0,
         "from": "DYU",
         "to": "MOW",
-        "date": "18.07.2027"
+        "date": "22.07.2024"
       }
     ],
     "passengers": {
@@ -61,7 +61,6 @@ You can use it as a sandbox to play with Writerside features, and remove it from
       "configuration_value": {}
     }
   },
-  "session_id": "628d7ca583af2935e00096d881d4f70d"
 }
 ```
 
@@ -90,20 +89,38 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 
 ```json
 {
-    "session_id": "628d7ca583af2935e00096d881d4f70d",
+    "search_params": {
+        "flight_type": "OW",
+        "routes": [
+            {
+                "index": 0,
+                "from": "DYU",
+                "to": "MOW",
+                "date": "22.07.2024"
+            }
+        ],
+        "passengers": {
+            "adt": "1",
+            "chd": "0",
+            "inf": "0",
+            "ins": "0"
+        },
+        "language": "ru",
+        "cabin": "economy"
+    },
     "flights": [
         {
-            "id": "MY10EASYOWE1000000090MOWNYC20220121-      TUA.EK.0.2120.P7691700.P3534125.-17.FZ.2311.DXB.202201212205.VKO.202201211540.73H.KLSOSRU1.325.0.TUA.0.2PC_17.EK.205.JFK.202201221900.DXB.202201220905.388.KLSOSRU1.1135.0.TUA.0.2PC",
+            "rec_id": "MY10EASYOWE1000000090MOWNYC20220121-        TUA.EK.0.2120.P7691700.P3534125.-17.FZ.2311.DXB.202201212205.VKO.202201211540.73H.KLSOSRU1.325.0.TUA.0.2PC_17.EK.205.JFK.202201221900.DXB.202201220905.388.KLSOSRU1.1135.0.TUA.0.2PC",
             "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
             "fare": 10520, // тариф
             "taxes": 507, // сумма такс
-            "fee": 2 // сбор 
+            "fee": 2, // сбор 
             "currency": "RUB", // валюта
             "provider": "TUA", // наименование поставщика услоги
             "supplier": { // валидирующий перевозчик 
-               "code": "TK",
-               "title": "Turkish Airlines"
-            }
+                "code": "TK",
+                "title": "Turkish Airlines"
+            },
             "ticketing_time_limit": 1707549258,
             "has_branded_tariffs": true, // флаг доступности семейства тарифов.
             "duration": 320, // общая продолжительность перелета всех роутов в минутах
@@ -115,106 +132,94 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                     "segments": [
                         {
                             "index": 0, // порядковый индекс сегмента
-                            "arrival": {  
-                                "date": ""22.07.2024", // дата прилета
+                            "arrival": {
+                                "date": "22.07.2024", // дата прилета
                                 "time": "06:30", // время прилета
                                 "datetime": "22.07.2024 06:30:00",
-                                "ts": 1721619000,, // дата и вермя прилета в unix-формате
-                                "terminal": "2", // терминал прилета
+                                "ts": 1721619000,
+                                // дата и вермя прилета в unix-формате
+                                "terminal": "A", // терминал прилета
                                 "airport": { // данные об аэропорте прилета
-                                  "title": "Аэропорт Стамбула", // название аэропорта
-                                  "code": "IST" // IATA код аэропорта
+                                    "title": "Аэропорт Стамбула", // название аэропорта
+                                    "code": "IST" // IATA код аэропорта
                                 },
-                                "city": {  // данные о городе прилета
+                                "city": { // данные о городе прилета
                                     "code": "IST", // IATA код города
                                     "title": "Стамбул" // название города
                                 },
                                 "country": { // данные о стране прилета
-                                    "code": "TR",  // IATA код страны
-                                    "title": "Турция"  //название страны
+                                    "code": "TR", // IATA код страны
+                                    "title": "Турция" //название страны
                                 }
                             },
                             "departure": {
-                                 "date": "22.07.2024",
-                            "time": "03:10",
-                            "datetime": "22.07.2024 03:10:00",
-                            "ts": 1721607000,
-                            "terminal": "",
-                            "airport": {
-                                "id": 79535,
-                                "title": "Душанбе",
-                                "short_title": "",
-                                "code": "DYU"
+                                "date": "22.07.2024",
+                                "time": "03:10",
+                                "datetime": "22.07.2024 03:10:00",
+                                "ts": 1721607000,
+                                "terminal": "",
+                                "airport": {
+                                    "title": "Душанбе",
+                                    "code": "DYU"
+                                },
+                                "city": {
+                                    "code": "DYU",
+                                    "title": "Душанбе"
+                                },
+                                "country": {
+                                    "code": "TJ",
+                                    "title": "Таджикистан"
+                                }
                             },
-                            "city": {
-                                "id": 68344,
-                                "code": "DYU",
-                                "title": "Душанбе"
+                            "is_baggage": true, // признак наличия багажа
+                            "baggage": { // данные о багаже
+                                "piece": 2, // количество мест
+                                "weight": 30 // вес
                             },
-                            "region": {
-                                "id": null,
-                                "code": null,
-                                "title": null
-                            },
-                            "country": {
-                                "id": 217,
-                                "code": "TJ",
-                                "title": "Таджикистан"
-                            }
-                            },
-                            "is_baggage": true,  // признак наличия багажа
-                            "baggage": {  // данные о багаже
-                              "piece": 2,  // количество мест
-                              "weight": 30  // вес
-                            },
-                            "comment": "" // комментарий если есть, уточняющий в текстовой форме особенности провоза багажа.
-                            "cbaggage": {  // данные о ручной клади
-                              "piece": 1,  // количество мест
-                              "weight": 7,  // вес
-                              "dimensions": {
-                                "width": 40,
-                                "length": 55,
-                                "height": 23
-                              },  // допустимые размеры
-                               "weight_unit": "KG"
+                            "comment": "", // комментарий если есть, уточняющий в текстовой форме особенности провоза багажа.
+                            "cbaggage": { // данные о ручной клади
+                                "piece": 1, // количество мест
+                                "weight": 7, // вес
+                                "dimensions": { // допустимые размеры
+                                    "width": 40,
+                                    "length": 55,
+                                    "height": 23
+                                },
+                                "weight_unit": "KG" // единица измерения 
                             },
                             "free_seats": 9,
                             "fare_code": "QY2PXOW", // название тарифа
-                            "segment_duration": 320, // продолжительность перелета
-                            "carrier": {  // данные об оперирующем перевозчике (operation_supplier)
-                            "code": "TK",
-                            "title": "Turkish Airlines" 
-                        },
-                            "carrier_number": "132",
-                             "aircraft": { // данные о самолете
-                              "code": "333",
-                              "title": "Airbus A330-300"
-                            }
-                            "service_class": { // данные о классе
-                                 "name": "economy", // класс обслуживания(first business economy)
-                                "code": "M" // сервис (первая буква тарифа)
-                               
+                            "duration": 320, // продолжительность перелета
+                            "carrier": { // данные об оперирующем перевозчике (operation_supplier)
+                                "code": "TK",
+                                "title": "Turkish Airlines"
                             },
-                             "tech_stops": [
-                                "airport_code": "CKG"
-                                "arrival_at": "22.07.2024 03:10:00"
-                                "departure_at": "22.07.2024 06:00:00"
+                            "aircraft": { // данные о самолете
+                                "code": "333",
+                                "title": "Airbus A330-300"
+                            },
+                            "service_class": { // данные о классе
+                                "name": "economy", // класс обслуживания(first business economy)
+                                "code": "M" // сервис (первая буква тарифа)
+                            },
+                            "tech_stops": [
+                                "airport_code": "CKG",
+                                "arrival_at": "22.07.2024 03:10:00",
+                                "departure_at": "22.07.2024 06:00:00",
                             ],
-                             "provider": "TUA", // наименование поставщика услоги
-                              "supplier": { // валидирующий перевозчик 
-                                 "code": "TK",
-                                 "title": "Turkish Airlines"
-                              }  
+                            "provider": "TUA", // наименование поставщика услоги
+                            "supplier": { // валидирующий перевозчик 
+                                "code": "TK",
+                                "title": "Turkish Airlines"
+                            },
                             "type": "regular", // тип перелета. Могут быть регулярные рейсы "regular", чартерные "charter" и рейсы лоукост-перевозчиков "lowcost".
-                            "is_charter": false,  // чартерный ли это рейс
+                            "is_charter": false, // чартерный ли это рейс
                             "is_refund": true, // возможен ли возврат
-                            "is_change": true, // возможен ли обмен 
+                            "is_change": true // возможен ли обмен 
                         }
-                    ],
-                    "options": []
+                    ]
                 }
-            ],
-            "rec_id": "132MSSODYUALA1708245900M0PCa1c0i0s0y0ins0KC10|040e9bf3f76cb35236d0b4d2a6f38166"
+            ]
         }
     ]
 }
