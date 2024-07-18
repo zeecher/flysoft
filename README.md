@@ -726,6 +726,9 @@ POST /book
     "code": 0,
     "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
+    "billing_number": "1253665116"
+    "booking_number": "KC/TQZED9",
+    "timelimit": "10.02.2024 08:40",
     "flights": {
         "rec_id": "API2EASYOWE2110000090DYUIST20240722_RU-TUA.TK.0.320.F10872500S10752411.OENCUDM0MTI0MzM=..-17.TK.255.DYU.202407220310.IST.202407220630.333.QY2PXOW.320.0.TUA.0.1P30K.1P8K..1.1..0",
         "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
@@ -853,9 +856,6 @@ POST /book
             }
         ]
     },
-    "booking_number": "125354686465",
-    "airline_booking_number": "KC/TQZED9",
-    "timelimit": "10.02.2024 08:40",
     "passengers": [
         {
             "index": 0,
