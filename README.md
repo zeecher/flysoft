@@ -93,6 +93,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 
 ```json
 {
+    "session_id": "628d7ca583af2935e00096d881d4f70d",
     "search_params": {
         "flight_type": "OW",
         "routes": [
