@@ -277,7 +277,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 Получение семейства тарифов для определенной рекомендации.
 
 ##### Пример запроса
-POST /brand-fares
+POST /fares
 ```json 
 {
   "rec_id": "API2EASYOWE2110000090DYUIST20240722_RU-TUA.TK.0.320.F10872500S10752411.OENCUDM0MTI0MzM=..-17.TK.255.DYU.202407220310.IST.202407220630.333.QY2PXOW.320.0.TUA.0.1P30K.1P8K..1.1..0",
@@ -501,7 +501,7 @@ POST /rules
 ```
 ## PreBook
 
-Пребукинг. Запрос для проверки наличия мест, а также цены на выбранную рекомендацию. 
+Запрос для проверки наличия мест, а также цены на выбранную рекомендацию. 
 Вызов запроса инициируется при выборе клиентом одной рекомендации, из предложенного множества рекомендаций поискового ответ
 
 ##### Пример запроса
@@ -671,10 +671,10 @@ POST /prebook
 ```
 
 ## Реализация Book
-Запрос на создание заказа.
+Запрос на создание брони.
 
 ##### Пример запроса
-POST /book
+POST /booking
 ```json
 {
     "session_id": "628d7ca583af2935e00096d881d4f70d",
@@ -901,9 +901,11 @@ POST /book
 ```
 
 ## Реализация CancelBook
+Запрос инициирующий отмену бронирования
+Отменять можно только заказы в статусе Забронирован.
 
 ##### Пример запроса 
-GET /cancel-book
+GET /booking-cancel
 
 ```json
 {
@@ -928,15 +930,16 @@ GET /cancel-book
 
 ```json
 {
+    "success": true,
+    "code": 0,
+    "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
     "booking_number": "125354686465",
-    "booking_status": "bookingCancel",
-    "error_code": "",
-    "error_desc": ""
+    "booking_status": "Cancelled"
 }
 ```
-Если есть ошибка при обработке error_code должен быть и error_message содержать текст ошибки
-и booking_status должен быть равен bookingCancelError
+Если есть ошибка при обработке поле code должно содержать код ошибки и message текст ошибки
+и booking_status должен быть равен CancelError
 
 
 ## Оплата заказа (Ticketing)
