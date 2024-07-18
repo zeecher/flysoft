@@ -101,23 +101,72 @@ You can use it as a sandbox to play with Writerside features, and remove it from
             "currency": "RUB", // валюта
             "provider": "myagent", // GDS, от которой пришла рекомендация
             "supplier": { // валидирующий перевозчик 
-                "code": "EK",
-                "title": "Emirates" 
+               "code": "TK",
+               "title": "Turkish Airlines"
             }
             "ticketing_time_limit": 1707549258,
             "has_branded_tariffs": true, // флаг доступности семейства тарифов.
+            "duration": 320, // общая продолжительность перелета всех роутов в минутах
+            "routes_count": 1, // число роутов в перелете
             "routes": [
                 {
                     "index": 0,
-                    "duration": 6600,
+                    "duration": 320, // продолжительность перелета сегментов в минутах
                     "segments": [
                         {
-                            "aircraft": "320",
+                            "arrival": {  
+                                "date": ""22.07.2024", // дата прилета
+                                "time": "06:30", // время прилета
+                                "datetime": "22.07.2024 06:30:00",
+                                "ts": 1721619000,, // дата и вермя прилета в unix-формате
+                                "terminal": "2", // терминал прилета
+                                "airport": { // данные об аэропорте прилета
+                                  "title": "Аэропорт Стамбула", // название аэропорта
+                                  "code": "IST" // IATA код аэропорта
+                                },
+                                "city": {  // данные о городе прилета
+                                    "code": "IST", // IATA код города
+                                    "title": "Стамбул" // название города
+                                },
+                                "country": { // данные о стране прилета
+                                    "code": "TR",  // IATA код страны
+                                    "title": "Турция"  //название страны
+                                }
+                            },
+                            "departure": {
+                                 "date": "22.07.2024",
+                            "time": "03:10",
+                            "datetime": "22.07.2024 03:10:00",
+                            "ts": 1721607000,
+                            "terminal": "",
+                            "airport": {
+                                "id": 79535,
+                                "title": "Душанбе",
+                                "short_title": "",
+                                "code": "DYU"
+                            },
+                            "city": {
+                                "id": 68344,
+                                "code": "DYU",
+                                "title": "Душанбе"
+                            },
+                            "region": {
+                                "id": null,
+                                "code": null,
+                                "title": null
+                            },
+                            "country": {
+                                "id": 217,
+                                "code": "TJ",
+                                "title": "Таджикистан"
+                            }
+                            },
                             "is_baggage": true,  // признак наличия багажа
                             "baggage": {  // данные о багаже
                               "piece": 2,  // количество мест
                               "weight": 30  // вес
                             },
+                            "comment": "" // комментарий если есть, уточняющий в текстовой форме особенности провоза багажа.
                             "cbaggage": {  // данные о ручной клади
                               "piece": 1,  // количество мест
                               "weight": 7,  // вес
@@ -128,26 +177,14 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                               },  // допустимые размеры
                                "weight_unit": "KG"
                             },
-                            "is_refund": true, // возможен ли возврат
-                            "is_change": true, // возможен ли обмен 
-                            "free_seats": 8,
-                            "arrival": {
-                                "time": "18.02.2024 16:35",
-                                "airport": "IST",
-                                "city": "IST",
-                                "country": "TR",
-                                "terminal": ""
-                            },
-                            "departure": {
-                                "time": "18.02.2024 13:45",
-                                "airport": "DYU",
-                                "city": "DYU",
-                                "country": "TJ",
-                                "terminal": ""
-                            },
+                            "free_seats": 9,
                             "fare_code": "MSSO",
-                            "duration": 6600, // общая продолжительность перелета
+                            "segment_duration": 320, // продолжительность перелета
                             "carrier_number": "132",
+                             "aircraft": { // данные о самолете
+                              "code": "333",
+                              "title": "Airbus A330-300"
+                            }
                             "index": 0,
                             "service_class": {
                                 "code": "M",
@@ -157,7 +194,9 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                             "operation_supplier": "KC",
                             "code_share": null,
                             "type": "regular", // тип перелета. Могут быть регулярные рейсы "regular", чартерные "charter" и рейсы лоукост-перевозчиков "lowcost".
-                            "is_charter": false,  // чартерный ли это рейс - чартеры имеют особенность по получению билета. его возможно получить не ранее, чем за сутки до вылета 
+                            "is_charter": false,  // чартерный ли это рейс
+                            "is_refund": true, // возможен ли возврат
+                            "is_change": true, // возможен ли обмен 
                         }
                     ],
                     "options": []
