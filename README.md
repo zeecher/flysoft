@@ -16,9 +16,9 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 
 ## Задачи для реализации с GDS:
 
-- Реализация Поиска рекомендаций
+- Реализация Поиска рекомендаций Search
 - Реализация BrandFares
-- Запрос на получение условий тарифа
+- Запрос на получение условий тарифа FareRules
 - Реализация Book
 - Реализация CancelBook
 - Реализация CheckPrice
@@ -31,6 +31,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 
 ```json
 {
+  "session_id": "628d7ca583af2935e00096d881d4f70d",
   "search_params": {
     "flight_type": "OW",
     "routes": [
@@ -456,7 +457,7 @@ POST /brand-fares
 ## Запрос на получение условий тарифа
 
 ##### Пример запроса 
-
+POST /fare-rules
 ```json
 {
     "session_id": "628d7ca583af2935e00096d881d4f70d",
@@ -502,6 +503,7 @@ POST /brand-fares
 ## Реализация Book
 
 ##### Пример запроса
+POST /book
 ```json
 {
     "session_id": "628d7ca583af2935e00096d881d4f70d",
@@ -606,7 +608,7 @@ POST /brand-fares
             "options": []
         }
     ],
-  "rec_id": "MY01EASYOWA1000010090MOWLED20231106-TUA.SU.0.95.F322717S374200.OENCTkRDX1NV..-31.SU.6.SVO.202311060655.LED.202311060830.32A.RNOR.95.0.TUA.0.0PC",
+    "rec_id": "MY01EASYOWA1000010090MOWLED20231106-TUA.SU.0.95.F322717S374200.OENCTkRDX1NV..-31.SU.6.SVO.202311060655.LED.202311060830.32A.RNOR.95.0.TUA.0.0PC",
     "fare_rules": [
         {
             "fare_code": "PSSO",
@@ -750,7 +752,6 @@ POST /ticketing-status
   "language": "ru"
 }
 ```
-
 
 ##### Пример ответа 
 
