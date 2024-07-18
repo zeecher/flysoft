@@ -119,7 +119,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
             "taxes": 507, // сумма такс
             "fee": 2, // сбор 
             "currency": "RUB", // валюта
-            "provider": "TUA", // наименование поставщика услоги
+            "provider": "TUA", // наименование поставщика услуги
             "supplier": { // валидирующий перевозчик 
                 "code": "TK",
                 "title": "Turkish Airlines"
@@ -224,7 +224,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                                 }
                             }
                         ],
-                            "provider": "TUA", // наименование поставщика услоги
+                            "provider": "TUA", // наименование поставщика услуги
                             "supplier": { // валидирующий перевозчик 
                                 "code": "TK",
                                 "title": "Turkish Airlines"
