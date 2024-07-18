@@ -1285,19 +1285,21 @@ POST /check-price
 ```json
 {
   "session_id": "628d7ca583af2935e00096d881d4f70d",
-  "billing_number": 125355187996
-
+  "billing_number": "125355187996",
+  "total_price" : 11226,
+  "currency": "RUB"
 }
 ```
 
 ##### Пример ответа 
 ```json
 {
+    "success": true,
+    "code": 0,
+    "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
-    "billing_number": "125354686465",
-     "new_price": 5000,
-    "is_price_changed": true,
-    "error_code": "",
-    "error_desc": ""  
+    "billing_number": "125355187996",
+    "new_price": 11000,
+    "is_price_changed": true
 }
 ```
