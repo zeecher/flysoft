@@ -93,6 +93,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
     "session_id": "628d7ca583af2935e00096d881d4f70d",
     "flights": [
         {
+            "id": "MY10EASYOWE1000000090MOWNYC20220121-      TUA.EK.0.2120.P7691700.P3534125.-17.FZ.2311.DXB.202201212205.VKO.202201211540.73H.KLSOSRU1.325.0.TUA.0.2PC_17.EK.205.JFK.202201221900.DXB.202201220905.388.KLSOSRU1.1135.0.TUA.0.2PC",
             "total_price": 11227,
             "fare": 10520,
             "fee": 200,
@@ -100,10 +101,16 @@ You can use it as a sandbox to play with Writerside features, and remove it from
             "insurance": 0,
             "discount": 0,
             "currency": "RUB",
-            "validating_supplier": "KC",
+            "supplier": { // валидирующий перевозчик 
+                "code": "EK",
+                "title": "Emirates" 
+            }
             "provider": "myagent",
             "ticketing_time_limit": 1707549258,
-            "has_branded_tariffs": true,
+            "has_branded_tariffs": true, // флаг доступности семейства тарифов.
+            "is_baggage": true, // возможна ли перевозка зарегистрированного багажа 
+            "is_charter": false, // чартерный ли это рейс 
+            "is_refund": true, // возможен ли возврат билета 
             "routes": [
                 {
                     "index": 0,
@@ -111,11 +118,23 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                     "segments": [
                         {
                             "aircraft": "320",
-                            "baggage": "0 PC",
-                            "hand_luggage": "8 KG",
-                            "hand_luggage_weight": "8 KG",
-                            "is_refund": false,
-                            "is_change": true,
+                            "is_baggage": true,  // признак наличия багажа
+                            "baggage": {  // данные о багаже
+                              "piece": 2,  // количество мест
+                              "weight": 30  // вес
+                            },
+                            "cbaggage": {  // данные о ручной клади
+                              "piece": 1,  // количество мест
+                              "weight": 7,  // вес
+                              "dimensions": {
+                                "width": 40,
+                                "length": 55,
+                                "height": 23
+                              },  // допустимые размеры
+                               "weight_unit": "KG"
+                            },
+                            "is_refund": true, // возможен ли возврат
+                            "is_change": true, // возможен ли обмен 
                             "free_seats": 8,
                             "arrival": {
                                 "time": "18.02.2024 16:35",
@@ -132,7 +151,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                                 "terminal": ""
                             },
                             "fare_code": "MSSO",
-                            "duration": 6600,
+                            "duration": 6600, // общая продолжительность перелета
                             "carrier_number": "132",
                             "index": 0,
                             "service_class": {
@@ -142,7 +161,8 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                             "tech_stops": [],
                             "operation_supplier": "KC",
                             "code_share": null,
-                            "is_charter": false
+                            "type": "regular", // тип перелета. Могут быть регулярные рейсы "regular", чартерные "charter" и рейсы лоукост-перевозчиков "lowcost".
+                            "is_charter": false,  // чартерный ли это рейс - чартеры имеют особенность по получению билета. его возможно получить не ранее, чем за сутки до вылета 
                         }
                     ],
                     "options": []
