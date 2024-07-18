@@ -22,7 +22,8 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 - Реализация Book
 - Реализация CancelBook
 - Реализация CheckPrice
-- Реализация Ticketing
+- Реализация Pay
+- Реализация Ticket
 - Проверка статуса одного заказа
 
 ## Реализация Поиска рекомендаций
@@ -883,7 +884,7 @@ POST /booking
                 "expire": "2044-05-28"
             },
             "amounts": {
-                "total_price": 1587.3,
+                "total_price": 11226,
                 "fare": 1587.3,
                 "taxes": 0,
                 "fees": 0,
@@ -934,26 +935,61 @@ GET /booking-cancel
     "code": 0,
     "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
-    "booking_number": "125354686465",
+    "billing_number": "125354686465",
     "booking_status": "Cancelled"
 }
 ```
 Если есть ошибка при обработке поле code должно содержать код ошибки и message текст ошибки
 и booking_status должен быть равен CancelError
 
-
-## Оплата заказа (Ticketing)
+## Реализация Pay
 
 ##### Пример запроса
+POST /pay
 
-POST /ticketing
+Оплата бронирования
 
 ```json
 {
   "session_id": "628d7ca583af2935e00096d881d4f70d",
-  "booking_number": "125354686465",
-  "total_price": 11227,
+  "total_price" : 11226,
   "currency": "RUB",
+  "configs": {
+    "connector": "batik",
+    "config": {
+      "connection_value": {
+        "url": "https:batik.cc.xly.com",
+        "login": "test",
+        "password": "password"
+      },
+      "configuration_value": {}
+    }
+  }
+}
+```
+
+##### Пример ответа 
+```json
+{
+    "success": true,
+    "code": 0,
+    "message": "",
+    "session_id": "628d7ca583af2935e00096d881d4f70d",
+    "billing_number": "125354686465",
+    "booking_status": "Paid" // статус заказа после успешной оплаты может принимает значение Paid или PayFail если оплата не пуспешна
+}
+```
+
+## Проверка статуса одного заказа
+
+##### Пример запроса 
+
+POST /ticket
+
+```json
+{
+  "session_id": "628d7ca583af2935e00096d881d4f70d",
+  "billing_number": "125354686465",
   "language": "ru",
   "configs": {
     "connector": "batik",
@@ -968,53 +1004,15 @@ POST /ticketing
   }
 }
 ```
-##### Пример ответа
-
-```json 
-{
-    "session_id": "628d7ca583af2935e00096d881d4f70d",
-    "billing_number": "125354686465",
-    "billing_status": "paySuccess",
-    "error_code": "",
-    "error_desc": "",
-    "tickets": []
-}
-```
- статус заказа после успешной оплаты может принимает значение paySuccess или payFail если оплата не пуспешна
-
-
-## Проверка статуса одного заказа
-
-##### Пример запроса 
-
-POST /ticketing-status
-
-```json
-{
-  "session_id": "628d7ca583af2935e00096d881d4f70d",
-  "billing_number": "125354686465",
-  "configs": {
-    "connector": "batik",
-    "config": {
-      "connection_value": {
-        "url": "https:batik.cc.xly.com",
-        "login": "test",
-        "password": "password"
-      },
-      "configuration_value": {}
-    }
-  },
-  "language": "ru"
-}
-```
 
 ##### Пример ответа 
 
 ```json
 {
+    "success": true,
+    "code": 0,
+    "message": "",
     "session_id": "628d7ca583af2935e00096d881d4f70d",
-    "error_code": "",
-    "error_desc": "",
     "order_id": 21845082, // Номер заказа GDS если присутсвует
     "billing_number": 125354686465,
     "expire": "30.05.2024 16:52:00",
@@ -1029,251 +1027,188 @@ POST /ticketing-status
             "fare": 10520,
             "fee": 200,
             "taxes": 507,
-            "insurance": 0,
-            "discount": 0,
             "extra_baggage": 0,
             "total_price": 11227
         }
     },
     "tickets": [
         {
-            "locator": "CBKZVT", // локатор авиакомпании, используется для регистрации на рейс
-            "booking_provider": "TUA", // название провайдера
+            "booking_number": "CBKZVT", //локатор GDS
+            "airline_booking_number": ["FDFFRZ"], //локатор авиакомпании, используется для регистрации на рейс
             "currency": "RUB", // код валюты заказа по классификации ISO 4217  https://www.iso.org/ru/iso-4217-currency-codes.html
+            "receipt_text": "", //настраиваемый в личном кабинете текст в Маршрутной квитанции
+             "booking_provider": "TUA", // название провайдера
             "carrier": {
-                "id": 636, //id оперирующего перевозчика
                 "code": "TK", //IATA код оперирующего перевозчика
                 "title": "Turkish Arilines" //название оперирующего перевозчика
             },
-            "duration": {
-                "flight": {
-                    "common": 90,
-                    "hour": 1,
-                    "minute": 30
-                }
-            },
+            "duration": 300 // продолжительность полета в минутах,
             "passengers": [
                 {
-                  "name": "DALER",
-                  "surname": "PULATOV",
-                  "citizenship": "TJ",
-                  "gender": "M",
-                  "type": "adt",
-                  "email": "suhrob.sobirov1993@mail.ru",
-                  "phone": "+992917039843",
-                  "date_of_birth": "22-02-1994",
-                  "document": {
-                        "type": "NP",
-                        "num": "2014454343",
-                        "original_number": "2014454343",
-                        "expire": "2044-05-28 00:00:00"
-                    },
-                    "ticketData": {
+            "name": "DALER",
+            "surname": "PULATOV",
+            "middle_name": "",
+            "citizenship": "TJ",
+            "gender": "M",
+            "type": "adt",
+            "email": "soleh1993@mail.ru",
+            "phone": "+992917039843",
+            "date_of_birth": "22-02-1994",
+            "document": {
+                "type": "NP",
+                "number": "2014454343",
+                "expire": "2044-05-28"
+            },
+            "amounts": {
+                "total_price": 11226,
+                "fare": 1587.3,
+                "fee": 0,
+                "tax": 507,
+                 "taxes": [
+                        {
+                            "code": "RI",
+                            "amount": 507,
+                            "currency": "RUB"
+                        }
+                    ] ,
+                "currency": "RUB",
+            },
+            "ticketData": {
                         "number": "5552327744382",
                         "refunded": false
-                    },
-                    "key": "PULATOV_DALER_2014454343_14-03-1989",
-                    "accompanying_adults": []
-                }
+               },
+              "accompanying_adults": []
+        }
             ]
         }
     ],
-    "flight": {
-        "rec_id": "255KF1BXBXDYUIST1722463800K40KG340KF1BXBXISTGYD1722503400K40KG335KF1BXBXGYDIST1722534900K40KG254KF1BXBXISTDYU1722612900K40KGa2c0i0s0y0ins0TK12|625533abc0b07dc388f4e6c2184aae79",
-        "total_price": 11227,
-        "fare": 10520,
-        "fee": 200,
-        "taxes": 507,
-        "insurance": 0,
-        "discount": 0,
-        "currency": "RUB",
-        "validating_supplier": "TK",
-        "provider": "batik",
-        "ticketing_time_limit": 1721015586,
-        "has_branded_tariffs": true,
+    "flights": "flights": {
+        "rec_id": "API2EASYOWE2110000090DYUIST20240722_RU-TUA.TK.0.320.F10872500S10752411.OENCUDM0MTI0MzM=..-17.TK.255.DYU.202407220310.IST.202407220630.333.QY2PXOW.320.0.TUA.0.1P30K.1P8K..1.1..0",
+        "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
+        "fare": 10520, // тариф
+        "taxes": 507, // сумма такс
+        "fee": 2, // сбор 
+        "currency": "RUB", // валюта
+        "provider": "TUA", // наименование поставщика услуги
+        "supplier": { // валидирующий перевозчик 
+            "code": "TK",
+            "title": "Turkish Airlines"
+        },
+        "ticketing_time_limit": 1707549258, // отведенное время для выписки билета, дата и вермя в unix-формате 
+        "has_branded_tariffs": true, // флаг доступности семейства тарифов.
+        "duration": 320, // общая продолжительность перелета всех роутов в минутах
+        "routes_count": 1, // число роутов в перелете
         "routes": [
             {
-                "index": 0,
-                "duration": 49800,
+                "index": 0, // направление, тк рейс с 1 маршрутом - то направление тут всегда будет 0. если рейс туда и обратно то будут сегменты со значением 0 туда и 1 обратно и более
+                "duration": 320, // продолжительность перелета сегментов в минутах
                 "segments": [
                     {
-                        "aircraft": "333",
-                        "baggage": "40 KG",
-                        "hand_luggage": "8 KG",
-                        "hand_luggage_weight": "8 KG",
-                        "is_refund": false,
-                        "is_change": true,
-                        "free_seats": 4,
+                        "index": 0, // порядковый индекс сегмента
                         "arrival": {
-                            "time": "01.08.2024 06:30",
-                            "airport": "IST",
-                            "city": "IST",
-                            "country": "TR",
-                            "terminal": ""
+                            "date": "22.07.2024", // дата прилета
+                            "time": "06:30", // время прилета
+                            "datetime": "22.07.2024 06:30:00",
+                            "ts": 1721619000,
+                            // дата и вермя прилета в unix-формате
+                            "terminal": "A", // терминал прилета
+                            "airport": { // данные об аэропорте прилета
+                                "title": "Аэропорт Стамбула", // название аэропорта
+                                "code": "IST" // IATA код аэропорта
+                            },
+                            "city": { // данные о городе прилета
+                                "code": "IST", // IATA код города
+                                "title": "Стамбул" // название города
+                            },
+                            "country": { // данные о стране прилета
+                                "code": "TR", // IATA код страны
+                                "title": "Турция" //название страны
+                            }
                         },
-                        "departure": {
-                            "time": "01.08.2024 03:10",
-                            "airport": "DYU",
-                            "city": "DYU",
-                            "country": "TJ",
-                            "terminal": ""
+                        "departure": { // данные о вылете (значения полей аналогичны данным о прилете) 
+                            "date": "22.07.2024",
+                            "time": "03:10",
+                            "datetime": "22.07.2024 03:10:00",
+                            "ts": 1721607000,
+                            "terminal": "",
+                            "airport": {
+                                "title": "Душанбе",
+                                "code": "DYU"
+                            },
+                            "city": {
+                                "code": "DYU",
+                                "title": "Душанбе"
+                            },
+                            "country": {
+                                "code": "TJ",
+                                "title": "Таджикистан"
+                            }
                         },
-                        "fare_code": "KF1BX",
-                        "duration": 19200,
-                        "carrier_number": "255",
-                        "index": 0,
-                        "service_class": {
-                            "code": "K",
-                            "name": "business"
+                        "is_baggage": true, // признак наличия багажа
+                        "baggage": { // данные о багаже
+                            "piece": 2, // количество мест
+                            "weight": 30 // вес
                         },
-                        "tech_stops": [],
-                        "operation_supplier": "TK",
-                        "code_share": null,
-                        "is_charter": false
-                    },
-                    {
-                        "aircraft": "32B",
-                        "baggage": "40 KG",
-                        "hand_luggage": "8 KG",
-                        "hand_luggage_weight": "8 KG",
-                        "is_refund": false,
-                        "is_change": true,
-                        "free_seats": 4,
-                        "arrival": {
-                            "time": "01.08.2024 16:00",
-                            "airport": "GYD",
-                            "city": "BAK",
-                            "country": "AZ",
-                            "terminal": "1"
+                        "comment": "", // комментарий если есть, уточняющий в текстовой форме особенности провоза багажа.
+                        "cbaggage": { // данные о ручной клади
+                            "piece": 1, // количество мест
+                            "weight": 7, // вес
+                            "dimensions": { // допустимые размеры
+                                "width": 40,
+                                "length": 55,
+                                "height": 23
+                            },
+                            "weight_unit": "KG" // единица измерения 
                         },
-                        "departure": {
-                            "time": "01.08.2024 12:10",
-                            "airport": "IST",
-                            "city": "IST",
-                            "country": "TR",
-                            "terminal": ""
+                        "free_seats": 9, // количество доступных мест
+                        "flight_number": "255", // номер рейса (carrier_number)
+                        "fare_code": "QY2PXOW", // название тарифа
+                        "duration": 320, // продолжительность перелета
+                        "carrier": { // данные об оперирующем перевозчике (operation_supplier)
+                            "code": "TK",
+                            "title": "Turkish Airlines"
                         },
-                        "fare_code": "KF1BX",
-                        "duration": 10200,
-                        "carrier_number": "340",
-                        "index": 1,
-                        "service_class": {
-                            "code": "K",
-                            "name": "business"
+                        "aircraft": { // данные о самолете
+                            "code": "333",
+                            "title": "Airbus A330-300"
                         },
-                        "tech_stops": [],
-                        "operation_supplier": "TK",
-                        "code_share": null,
-                        "is_charter": false
+                        "service_class": { // данные о классе
+                            "name": "economy", // класс обслуживания(first business economy)
+                            "code": "M" // сервис (первая буква тарифа)
+                        },
+                        "tech_stops": [ // данные о технических остановках
+                            {
+                                "duration": 360 // продолжительность технической остановки в минутах,
+                                "arrival": "22.01.2022 13:10:00", // дата и время прилета
+                                "departure": "22.01.2022 15:40:00", // дата и время вылета
+                                "airport": {
+                                    "code": "MXP",
+                                    "title": "Малпенза"
+                                },
+                                "city": {
+                                    "code": "MIL",
+                                    "title": "Милан"
+                                },
+                                "country": {
+                                    "code": "IT",
+                                    "title": "Италия"
+                                }
+                            }
+                        ],
+                        "provider": "TUA", // наименование поставщика услуги
+                        "supplier": { // валидирующий перевозчик 
+                            "code": "TK",
+                            "title": "Turkish Airlines"
+                        },
+                        "type": "regular", // тип перелета. Могут быть регулярные рейсы "regular", чартерные "charter" и рейсы лоукост-перевозчиков "lowcost".
+                        "is_charter": false, // чартерный ли это рейс
+                        "is_refund": true, // возможен ли возврат
+                        "is_change": true // возможен ли обмен 
                     }
-                ],
-                "options": []
-            },
-            {
-                "index": 1,
-                "duration": 49800,
-                "segments": [
-                    {
-                        "aircraft": "32B",
-                        "baggage": "40 KG",
-                        "hand_luggage": "8 KG",
-                        "hand_luggage_weight": "8 KG",
-                        "is_refund": false,
-                        "is_change": true,
-                        "free_seats": 4,
-                        "arrival": {
-                            "time": "02.08.2024 00:05",
-                            "airport": "IST",
-                            "city": "IST",
-                            "country": "TR",
-                            "terminal": ""
-                        },
-                        "departure": {
-                            "time": "01.08.2024 21:55",
-                            "airport": "GYD",
-                            "city": "BAK",
-                            "country": "AZ",
-                            "terminal": "1"
-                        },
-                        "fare_code": "KF1BX",
-                        "duration": 11400,
-                        "carrier_number": "335",
-                        "index": 0,
-                        "service_class": {
-                            "code": "K",
-                            "name": "business"
-                        },
-                        "tech_stops": [],
-                        "operation_supplier": "TK",
-                        "code_share": null,
-                        "is_charter": false
-                    },
-                    {
-                        "aircraft": "333",
-                        "baggage": "40 KG",
-                        "hand_luggage": "8 KG",
-                        "hand_luggage_weight": "8 KG",
-                        "is_refund": false,
-                        "is_change": true,
-                        "free_seats": 4,
-                        "arrival": {
-                            "time": "03.08.2024 01:10",
-                            "airport": "DYU",
-                            "city": "DYU",
-                            "country": "TJ",
-                            "terminal": ""
-                        },
-                        "departure": {
-                            "time": "02.08.2024 18:35",
-                            "airport": "IST",
-                            "city": "IST",
-                            "country": "TR",
-                            "terminal": ""
-                        },
-                        "fare_code": "KF1BX",
-                        "duration": 16500,
-                        "carrier_number": "254",
-                        "index": 1,
-                        "service_class": {
-                            "code": "K",
-                            "name": "business"
-                        },
-                        "tech_stops": [],
-                        "operation_supplier": "TK",
-                        "code_share": null,
-                        "is_charter": false
-                    }
-                ],
-                "options": []
+                ]
             }
         ]
-    },
-    "passengers_price_details": [
-        {
-            "key": "PULATOV_DALER_2014454343_14-03-1989",
-            "affiliate_fee": 0,
-            "agent_affiliate_fee": 0,
-            "partner_affiliate_fee": 0,
-            "comsa": 1,
-            "ticket_price": 11226,
-            "acquiring": 0,
-            "insurance_price": 0,
-            "vat": 956.36,
-            "taxes_amount": 507,
-            "tariff": 10520,
-            "fee": 200,
-            "commissions": {
-                "other_commission": 1
-            },
-            "taxes": [
-                {
-                    "code": "RI",
-                    "amount": 507,
-                    "currency": "RUB"
-                }
-            ]
-        }
-    ]
+    }
 }
 ```
 
