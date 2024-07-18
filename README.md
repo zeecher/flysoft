@@ -94,23 +94,18 @@ You can use it as a sandbox to play with Writerside features, and remove it from
     "flights": [
         {
             "id": "MY10EASYOWE1000000090MOWNYC20220121-      TUA.EK.0.2120.P7691700.P3534125.-17.FZ.2311.DXB.202201212205.VKO.202201211540.73H.KLSOSRU1.325.0.TUA.0.2PC_17.EK.205.JFK.202201221900.DXB.202201220905.388.KLSOSRU1.1135.0.TUA.0.2PC",
-            "total_price": 11227,
-            "fare": 10520,
-            "fee": 200,
-            "taxes": 507,
-            "insurance": 0,
-            "discount": 0,
-            "currency": "RUB",
+            "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
+            "fare": 10520, // тариф
+            "taxes": 507, // сумма такс
+            "fee": 2 // сбор 
+            "currency": "RUB", // валюта
+            "provider": "myagent", // GDS, от которой пришла рекомендация
             "supplier": { // валидирующий перевозчик 
                 "code": "EK",
                 "title": "Emirates" 
             }
-            "provider": "myagent",
             "ticketing_time_limit": 1707549258,
             "has_branded_tariffs": true, // флаг доступности семейства тарифов.
-            "is_baggage": true, // возможна ли перевозка зарегистрированного багажа 
-            "is_charter": false, // чартерный ли это рейс 
-            "is_refund": true, // возможен ли возврат билета 
             "routes": [
                 {
                     "index": 0,
