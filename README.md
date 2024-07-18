@@ -99,7 +99,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
             "taxes": 507, // сумма такс
             "fee": 2 // сбор 
             "currency": "RUB", // валюта
-            "provider": "myagent", // GDS, от которой пришла рекомендация
+            "provider": "TUA", // наименование поставщика услоги
             "supplier": { // валидирующий перевозчик 
                "code": "TK",
                "title": "Turkish Airlines"
@@ -114,6 +114,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                     "duration": 320, // продолжительность перелета сегментов в минутах
                     "segments": [
                         {
+                            "index": 0, // порядковый индекс сегмента
                             "arrival": {  
                                 "date": ""22.07.2024", // дата прилета
                                 "time": "06:30", // время прилета
@@ -178,21 +179,32 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                                "weight_unit": "KG"
                             },
                             "free_seats": 9,
-                            "fare_code": "MSSO",
+                            "fare_code": "QY2PXOW", // название тарифа
                             "segment_duration": 320, // продолжительность перелета
+                            "carrier": {  // данные об оперирующем перевозчике (operation_supplier)
+                            "code": "TK",
+                            "title": "Turkish Airlines" 
+                        },
                             "carrier_number": "132",
                              "aircraft": { // данные о самолете
                               "code": "333",
                               "title": "Airbus A330-300"
                             }
-                            "index": 0,
-                            "service_class": {
-                                "code": "M",
-                                "name": "economy"
+                            "service_class": { // данные о классе
+                                 "name": "economy", // класс обслуживания(first business economy)
+                                "code": "M" // сервис (первая буква тарифа)
+                               
                             },
-                            "tech_stops": [],
-                            "operation_supplier": "KC",
-                            "code_share": null,
+                             "tech_stops": [
+                                "airport_code": "CKG"
+                                "arrival_at": "22.07.2024 03:10:00"
+                                "departure_at": "22.07.2024 06:00:00"
+                            ],
+                             "provider": "TUA", // наименование поставщика услоги
+                              "supplier": { // валидирующий перевозчик 
+                                 "code": "TK",
+                                 "title": "Turkish Airlines"
+                              }  
                             "type": "regular", // тип перелета. Могут быть регулярные рейсы "regular", чартерные "charter" и рейсы лоукост-перевозчиков "lowcost".
                             "is_charter": false,  // чартерный ли это рейс
                             "is_refund": true, // возможен ли возврат
