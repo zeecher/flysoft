@@ -24,7 +24,6 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 - Реализация CheckPrice
 - Реализация Pay
 - Реализация Ticket
-- Проверка статуса одного заказа
 
 ## Реализация Поиска рекомендаций
 
@@ -980,7 +979,7 @@ POST /pay
 }
 ```
 
-## Проверка статуса одного заказа
+## Реализация Ticket
 
 ##### Пример запроса 
 
