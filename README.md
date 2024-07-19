@@ -1014,88 +1014,93 @@ POST /ticket
     "session_id": "628d7ca583af2935e00096d881d4f70d",
     "order_id": "5e380c87676c62dbc55f90a0836dbb8786a7d55b", // Номер заказа GDS если присутсвует
     "billing_number": 125354686465,
-    "expire": "30.05.2024 16:52:00",
-    "expire_remain": 85492,
     "created": "28.05.2024 17:02:06",
     "status": {
         "sign": "Ticketed",
         "title": "Закрыт"
     },
-    "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
-            "fare": 10520, // тариф
-               "fee": 2, // сбор 
-            "tax": 507, // сумма такс
-                 "taxes": [
-                        {
-                            "code": "RI",
-                            "amount": 507,
-                            "currency": "RUB"
-                        }
-                    ] ,
+    "total_price": 11029, // стоимость билета, включает в себя fare + tax + fee
+    "fare": 10520, // тариф
+    "fee": 2, // сбор 
+    "tax": 507, // сумма такс
+    "taxes": [
+        {
+            "code": "RI", // вид таксы
+            "amount": 507 //сумма таксы
+        }
+    ],
+    "currency": "RUB",
     "tickets": [
         {
             "booking_number": "CBKZVT", //локатор GDS
-            "airline_booking_number": ["FDFFRZ"], //локатор авиакомпании, используется для регистрации на рейс
+            "airline_booking_number": [
+                "FDFFRZ"
+            ], //локатор авиакомпании, используется для регистрации на рейс
             "currency": "RUB", // код валюты заказа по классификации ISO 4217  https://www.iso.org/ru/iso-4217-currency-codes.html
             "receipt_text": "", //настраиваемый в личном кабинете текст в Маршрутной квитанции
-             "booking_provider": "TUA", // название провайдера
+            "booking_provider": "TUA", // название провайдера
             "carrier": {
                 "code": "TK", //IATA код оперирующего перевозчика
                 "title": "Turkish Arilines" //название оперирующего перевозчика
             },
-            "duration": 300 // продолжительность полета в минутах,
+            "duration": 300, // продолжительность полета в минутах,
             "passengers": [
                 {
-            "name": "DALER",
-            "surname": "PULATOV",
-            "middle_name": "",
-            "citizenship": "TJ",
-            "gender": "M",
-            "type": "adt",
-            "email": "soleh1993@mail.ru",
-            "phone": "+992917039843",
-            "date_of_birth": "22-02-1994",
-            "document": {
-                "type": "NP",
-                "number": "2014454343",
-                "expire": "2044-05-28"
-            },
-            "amounts": {
-                "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
-            "fare": 10520, // тариф
-               "fee": 2, // сбор 
-            "tax": 507, // сумма такс
-                 "taxes": [
-                        {
-                            "code": "RI",
-                            "amount": 507,
-                            "currency": "RUB"
-                        }
-                    ] ,
-                "currency": "RUB",
-            },
-            "ticketData": {
-                        "number": "5552327744382",
+                    "name": "DALER",
+                    "surname": "PULATOV",
+                    "middle_name": "",
+                    "citizenship": "TJ",
+                    "gender": "M",
+                    "type": "adt",
+                    "email": "soleh1993@mail.ru",
+                    "phone": "+992917039843",
+                    "date_of_birth": "22-02-1994",
+                    "document": {
+                        "type": "NP",
+                        "number": "2014454343",
+                        "expire": "2044-05-28"
+                    },
+                    "amounts": {
+                        "total_price": 11029, // стоимость билета, включает в себя fare + tax + fee
+                        "fare": 10520, // тариф
+                        "fee": 2, // сбор 
+                        "tax": 507, // сумма такс
+                        "taxes": [
+                            {
+                                "code": "RI", // вид таксы
+                                "amount": 507 //сумма таксы
+                            }
+                        ],
+                        "currency": "RUB"
+                    },
+                    "ticketData": {
+                        "number": "5552327744382", // номер билета 
                         "refunded": false
-               },
-              "accompanying_adults": []
-        }
+                    },
+                    "accompanying_adults": []
+                }
             ]
         }
     ],
-    "flights": "flights": {
+    "flight": {
         "rec_id": "API2EASYOWE2110000090DYUIST20240722_RU-TUA.TK.0.320.F10872500S10752411.OENCUDM0MTI0MzM=..-17.TK.255.DYU.202407220310.IST.202407220630.333.QY2PXOW.320.0.TUA.0.1P30K.1P8K..1.1..0",
-       "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
-            "fare": 10520, // тариф
-            "tax": 507, // сумма такс
-            "fee": 2, // сбор 
+        "total_price": 11029, // стоимость билета, включает в себя fare + taxes + fee
+        "fare": 10520, // тариф
+        "tax": 507, // общая сумма такс
+        "fee": 2, // сбор 
+        "taxes": [ // список такс по видам
+            {
+                "code": "RI", // вид таксы
+                "amount": 507 //сумма таксы
+            }
+        ],
         "currency": "RUB", // валюта
         "provider": "TUA", // наименование поставщика услуги
         "supplier": { // валидирующий перевозчик 
             "code": "TK",
             "title": "Turkish Airlines"
         },
-        "ticketing_time_limit": 0
+        "ticketing_time_limit": 0,
         "has_branded_tariffs": true, // флаг доступности семейства тарифов.
         "duration": 320, // общая продолжительность перелета всех роутов в минутах
         "routes_count": 1, // число роутов в перелете
