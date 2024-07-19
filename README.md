@@ -123,6 +123,16 @@ You can use it as a sandbox to play with Writerside features, and remove it from
             "fare": 10520, // тариф
             "tax": 507, // сумма такс
             "fee": 2, // сбор 
+            "taxes": [ // список такс по видам
+              {
+                  "code": "RI", // вид таксы
+                  "amount": 307 //сумма таксы
+              },
+              {
+                 "code": "YR", // вид таксы
+                  "amount": 200 //сумма таксы
+              }
+            ],
             "currency": "RUB", // валюта
             "provider": "TUA", // наименование поставщика услуги
             "supplier": { // валидирующий перевозчик 
