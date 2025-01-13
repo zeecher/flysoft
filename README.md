@@ -27,7 +27,9 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 
 ## Реализация Поиска рекомендаций
 
-##### Пример запроса
+### Пример запроса
+
+##### Пример запроса OW (one way)
 
 ```json
 {
@@ -61,7 +63,101 @@ You can use it as a sandbox to play with Writerside features, and remove it from
       },
       "configuration_value": {}
     }
+  }
+}
+```
+
+##### Пример запроса RT (round trip)
+
+```json
+{
+  "session_id": "628d7ca583af2935e00096d881d4f70d",
+  "search_params": {
+    "flight_type": "RT",
+    "routes": [
+      {
+        "index": 0,
+        "from": "DYU",
+        "to": "MOW",
+        "date": "22.07.2024"
+      },
+      {
+        "index": 1,
+        "from": "MOW",
+        "to": "DYU",
+        "date": "25.07.2024"
+      }
+    ],
+    "passengers": {
+      "adt": "1",
+      "chd": "0",
+      "inf": "0",
+      "ins": "0"
+    },
+    "language": "ru",
+    "cabin": "economy"
   },
+  "config": {
+    "connector": "batik",
+    "config": {
+      "connection_value": {
+        "url": "https:batik.cc.xly.com",
+        "login": "test",
+        "password": "password"
+      },
+      "configuration_value": {}
+    }
+  }
+}
+```
+
+##### Пример запроса CF (complicated flight)
+
+```json
+{
+  "session_id": "628d7ca583af2935e00096d881d4f70d",
+  "search_params": {
+    "flight_type": "CF",
+    "routes": [
+      {
+        "index": 0,
+        "from": "DYU",
+        "to": "MOW",
+        "date": "22.07.2024"
+      },
+      {
+        "index": 1,
+        "from": "MOW",
+        "to": "IST",
+        "date": "25.07.2024"
+      },
+      {
+        "index": 2,
+        "from": "IST",
+        "to": "DYU",
+        "date": "28.07.2024"
+      }
+    ],
+    "passengers": {
+      "adt": "1",
+      "chd": "0",
+      "inf": "0",
+      "ins": "0"
+    },
+    "language": "ru",
+    "cabin": "economy"
+  },
+  "config": {
+    "connector": "batik",
+    "config": {
+      "connection_value": {
+        "url": "https:batik.cc.xly.com",
+        "login": "test",
+        "password": "password"
+      },
+      "configuration_value": {}
+    }
+  }
 }
 ```
 
@@ -89,7 +185,9 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 Рекомендуется использовать одновременно только один из параметров gds_white_list или gds_black_list. При одновременном использовании обоих по приоритету должен быть использван gds_white_list, а gds_black_list - проигнорирован.
 Рекомендуется использовать одновременно только один из параметров airline_list или airline_black_list. При одновременном использовании обоих по приоритету должен быть использван airline_list, а airline_black_list - проигнорирован.
 
-##### Пример ответа 
+### Пример ответа 
+
+##### Пример ответа OW (one way)
 
 ```json
 {
@@ -257,8 +355,22 @@ You can use it as a sandbox to play with Writerside features, and remove it from
         }
     ]
 }
-
 ```
+
+##### Пример ответа RT (round trip)
+- аналогичен ответу OW, но содержит 2 и более роутов
+- каждый роут содержит информацию о перелете
+- Пример: MOW (Москва) → IST (Стамбул) → MOW (Москва)
+
+##### Пример ответа CF сложный роут (complicated flight)
+
+- аналогичен ответу OW, но содержит более двух роутов
+- в ответе содержится более двух роутов, каждый роут содержит информацию о перелете
+- первый роут - начало путешествия
+- последний роут - конец путешествия
+- Пример: DYU (Душанбе) → MOW (Москва) → IST (Стамбул)
+
+
 ###### Пример данных о дополнительном багаже на лоукостах. (lowcost)
 ```json
  "extra_baggage":{ 
@@ -281,7 +393,6 @@ You can use it as a sandbox to play with Writerside features, and remove it from
          }
 }
 ````
-
 
 ## Запрос на получение семейств тарифов (BrandFares)
 Получение семейства тарифов для определенной рекомендации.
