@@ -134,7 +134,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
       {
         "index": 2,
         "from": "IST",
-        "to": "DYU",
+        "to": "DXB",
         "date": "28.07.2024"
       }
     ],
