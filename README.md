@@ -321,7 +321,7 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                             },
                             "tech_stops": [  // данные о технических остановках
                             {
-                                "duration": 360 // продолжительность технической остановки в минутах,
+                                "duration": 360, // продолжительность технической остановки в минутах,
                                 "arrival": "22.01.2022 13:10:00", // дата и время прилета
                                 "departure": "22.01.2022 15:40:00", // дата и время вылета
                                 "airport": {
@@ -351,7 +351,8 @@ You can use it as a sandbox to play with Writerside features, and remove it from
                      }
                     ]
                 }
-            ]
+            ],
+            "extra_data": {} // для хранения данных, которые потребуются для дальнейших запросов (prebook, book, pay и т.д.)
         }
     ]
 }
@@ -643,7 +644,8 @@ POST /prebook
       },
       "configuration_value": {}
     }
-  }
+  },
+  "extra_data": {}
 }
 ```
 ##### Параметры запроса
@@ -837,7 +839,8 @@ POST /booking
             },
             "configuration_value": {}
         }
-    }
+    },
+    "extra_data": {}
 }
 ```
 
@@ -1044,7 +1047,8 @@ GET /booking-cancel
       },
       "configuration_value": {}
     }
-  }
+  },
+    "extra_data": {}
 }
 ```
 
@@ -1085,7 +1089,8 @@ POST /pay
       },
       "configuration_value": {}
     }
-  }
+  },
+    "extra_data": {}
 }
 ```
 
@@ -1122,7 +1127,8 @@ POST /ticket
       },
       "configuration_value": {}
     }
-  }
+  },
+  "extra_data": {}
 }
 ```
 
